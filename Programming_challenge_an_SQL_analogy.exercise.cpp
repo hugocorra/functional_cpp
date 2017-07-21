@@ -17,17 +17,6 @@ std::size_t get_visits(const user& u)
     return u.visits;
 }
 
-template <typename T, typename U>
-int mypair(std::pair<T, U> p)
-{
-    return 0;
-}
-
-int abc(std::vector<int> v)
-{
-    return 0;
-}
-
 int main()
 {
     using namespace std::placeholders;
@@ -40,7 +29,7 @@ int main()
         {"Stefan", "GER", 4}
     };
     
-    // breaking in pieces...
+    // n^2 version and breaking in pieces.
     auto r = fplus::group_globally_on_labeled(get_country, users);
     auto x = fplus::transform(fplus::fwd::transform_snd(fplus::fwd::transform(get_visits)), r);
     auto y = fplus::transform(fplus::fwd::transform_snd(fplus::fwd::sum()), x);
@@ -48,6 +37,7 @@ int main()
     std::cout << "x = " << fplus::show(x) << std::endl;
     std::cout << "y = " << fplus::show(y) << std::endl;
  
+    // loop version.
     for (auto i : r)
     {
         std::cout << i.first << std::endl;
@@ -60,8 +50,16 @@ int main()
 
         std::cout << "\ttotal = " << rs << std::endl;
     }
+    
+    // using n * long(n) version. 
+    auto result_n_log_n = fplus::fwd::apply(users,
+        fplus::fwd::sort_on(get_country),
+        fplus::fwd::group_on_labeled(get_country),
+        fplus::fwd::transform(fplus::fwd::transform_snd(fplus::fwd::transform(get_visits))),
+        fplus::fwd::transform(fplus::fwd::transform_snd(fplus::fwd::sum()))
+    );
 
-
+    std::cout << fplus::show_cont(result_n_log_n) << std::endl;
 
     // SELECT country, SUM(visits)
     //     FROM users
