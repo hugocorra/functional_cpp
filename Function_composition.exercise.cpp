@@ -11,9 +11,14 @@ int main()
 {
     const std::string input = "1,5,4,7,2,2,3.34";
 
+    const auto split_and_convert_to_double = 
+        fplus::fwd::compose(
+            fplus::fwd::split(',', false),
+            fplus::fwd::transform(str_to_double)
+        );
+
     const auto result = fplus::fwd::apply(input
-        , fplus::fwd::split(',', false)
-        , fplus::fwd::transform(str_to_double)
+        , split_and_convert_to_double
         , fplus::fwd::product()
     );
 
