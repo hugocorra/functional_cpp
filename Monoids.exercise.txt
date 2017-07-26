@@ -1,0 +1,10 @@
+Semigroups:
+1) sets under the union operation
+2) numbers under multiplication
+3) strings (or sequences in general) under concatenation
+
+Exercise:
+1) Can you find neutral elements to these three semigroups
+and thus make them monoids?
+
+2) Which of them are commutative and which are not?
