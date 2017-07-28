@@ -7,4 +7,12 @@ Exercise:
 1) Can you find neutral elements to these three semigroups
 and thus make them monoids?
 
+{} (empty set),
+1 (one)
+"" (empty string)
+
+
 2) Which of them are commutative and which are not?
+set is commutative
+numbers under multiplication are commutative
+strings are no commutative
