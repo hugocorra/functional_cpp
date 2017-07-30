@@ -1,3 +1,4 @@
+#include <type_traits>
 #include <fplus/fplus.hpp>
 
 // Exercise:
@@ -5,6 +6,15 @@
 //     and test it with the following code.
 
 // lift_dict : ((a -> b), Map key a) -> Map key b
+
+template <typename TOutputValue, typename TFunc, typename TInputKey, typename TInputValue>
+auto lift_dict(TFunc f, std::map<TInputKey, TInputValue>& m)
+{   
+    std::map<TInputKey, TOutputValue> r;
+    std::for_each(m.begin(), m.end(), [&r, &f](const std::pair<TInputKey, TInputValue>& p) { r[p.first] = f(p.second); });
+    return r;
+}
+
 
 int main()
 {
